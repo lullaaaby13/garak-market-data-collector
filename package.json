@@ -1,0 +1,20 @@
+{
+  "name": "garak-market-data-collector",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon ./src/app.ts --exec ts-node"
+  },
+  "dependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/mongoose": "^5.7.22",
+    "axios": "^0.19.2",
+    "delay": "^4.3.0",
+    "moment": "^2.26.0",
+    "mongoose": "^5.9.18",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.5",
+    "xml-js": "^1.6.11"
+  }
+}
