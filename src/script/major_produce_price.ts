@@ -1,4 +1,4 @@
-import './infrastructure/connect_mongoose'
+import '../infrastructure/connect_mongoose'
 import * as fs from 'fs'
 import * as path from 'path'
 import axios from 'axios';
@@ -48,29 +48,22 @@ const dateFormat = 'YYYYMMDD';
         const totalPage = getTotalPage(parsedJSON);
 
         for (let page = 1; page <= totalPage; page++) {
-            axiosInstance.get('', { params: { ...defaultParameters, ...dateParameter, pageidx: page }})
-                .then(({ data }) => {
 
-                    const curPage = page;
-                    const converted = convertToJSON(data);
+            const { data } = await axiosInstance.get('', { params: { ...defaultParameters, ...dateParameter, pageidx: page }})
+            const curPage = page;
+            const converted = convertToJSON(data);
 
-                    Array.from(converted.lists.list).map(element => {
-                        const document = {};
-                        const keys = Object.keys(element);
-                        for (const key of keys) {
-                            document[key] = element[key]._text;
-                        }
-                        return document;
-                    }).forEach(document =>
-                        MajoyProducePriceModel.create(document)
-                            // @ts-ignore
-                            // .then(() => console.log(`${dateParameter.p_ymd} | ${curPage} | ${document.PUM_NM_A}`))
-                            // @ts-ignore
-                            .catch(err => backup(document, `${dateParameter.p_ymd}_${curPage}_${document.PUM_NM_A}`))
-                    )
-                })
-                .catch(err => console.log(err));
-            await delay(1000);
+            const createRequests = Array.from(converted.lists.list).map(element => {
+                const document = {};
+                const keys = Object.keys(element);
+                for (const key of keys) {
+                    document[key] = element[key]._text;
+                }
+                return document;
+            }).map(document => MajoyProducePriceModel.create(document));
+
+            await Promise.all(createRequests)
+                .then(() => console.log(`${dateParameter.p_ymd} | ${curPage} 페이지 | 수집 완료`))
         }
 
         // // 날짜 증가
@@ -83,7 +76,7 @@ const dateFormat = 'YYYYMMDD';
         const finishDateStr = finishDate.format(dateFormat);
         if (targetDateStr === finishDateStr) break;
     }
-    console.log(`수집 종료`);
+    console.log(`전체 수집 종료`);
 })();
 
 function convertToJSON (xml: string) {
