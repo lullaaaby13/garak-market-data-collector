@@ -2,6 +2,10 @@ import { model, Schema } from 'mongoose';
 
 const MajoyProducePrice = new Schema(
     {
+        BID_DTM: {
+          type: Date,
+          required: true,
+        },
         PUM_NM_A: {
             type: String,
             required: true,

@@ -60,6 +60,7 @@ const dateFormat = 'YYYYMMDD';
                         for (const key of keys) {
                             document[key] = element[key]._text;
                         }
+                        document['BID_DTM'] = p_ymd;
                         return document;
                     }).forEach(document =>
                         MajoyProducePriceModel.create(document)
@@ -70,7 +71,7 @@ const dateFormat = 'YYYYMMDD';
                     )
                 })
                 .catch(err => console.log(err));
-            await delay(1000);
+            await delay(250);
         }
 
         // // 날짜 증가
