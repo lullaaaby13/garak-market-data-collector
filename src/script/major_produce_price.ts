@@ -48,30 +48,22 @@ const dateFormat = 'YYYYMMDD';
         const totalPage = getTotalPage(parsedJSON);
 
         for (let page = 1; page <= totalPage; page++) {
-            axiosInstance.get('', { params: { ...defaultParameters, ...dateParameter, pageidx: page }})
-                .then(({ data }) => {
+            const { data} = await axiosInstance.get('', { params: { ...defaultParameters, ...dateParameter, pageidx: page }})
 
-                    const curPage = page;
-                    const converted = convertToJSON(data);
+            // const curPage = page;
+            const converted = convertToJSON(data);
 
-                    Array.from(converted.lists.list).map(element => {
-                        const document = {};
-                        const keys = Object.keys(element);
-                        for (const key of keys) {
-                            document[key] = element[key]._text;
-                        }
-                        document['BID_DTM'] = p_ymd;
-                        return document;
-                    }).forEach(document =>
-                        MajoyProducePriceModel.create(document)
-                            // @ts-ignore
-                            // .then(() => console.log(`${dateParameter.p_ymd} | ${curPage} | ${document.PUM_NM_A}`))
-                            // @ts-ignore
-                            .catch(err => backup(document, `${dateParameter.p_ymd}_${curPage}_${document.PUM_NM_A}`))
-                    )
-                })
-                .catch(err => console.log(err));
-            await delay(250);
+            const requests = Array.from(converted.lists.list).map(element => {
+                const document = {};
+                const keys = Object.keys(element);
+                for (const key of keys) {
+                    document[key] = element[key]._text;
+                }
+                document['BID_DTM'] = p_ymd;
+                return document;
+            }).map(document => MajoyProducePriceModel.create(document));
+
+            await Promise.all(requests).then(() => console.log(`${dateParameter.p_ymd} 수집 완료`));
         }
 
         // // 날짜 증가
