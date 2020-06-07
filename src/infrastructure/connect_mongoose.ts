@@ -1,12 +1,11 @@
 import * as mongoose from 'mongoose'
+import ConfigLoader from "../utils/ConfigLoader";
 const { connection, connect } = mongoose;
 
-// 'mongodb+srv://test:test1234@cluster0-gajqu.mongodb.net/test?retryWrites=true&w=majority'
-const connectionURL = 'mongodb://localhost:27017/garak-market';
-// const connectionURL = 'mongodb+srv://test:test1234@cluster0-gajqu.mongodb.net/test?retryWrites=true&w=majority';
+const { url } = ConfigLoader.load('mongoose.yaml');
 
 connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
-const dbConnection = connect(connectionURL,
+const dbConnection = connect(url,
     {
         useNewUrlParser: true,
         useUnifiedTopology: true

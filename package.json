@@ -4,16 +4,25 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon ./src/app.ts --exec ts-node",
+    "dev": "cross-env NODE_ENV=development nodemon ./src/script/convert_to_mariadb_major_produce_price.ts --exec ts-node",
     "build": "tsc"
   },
   "dependencies": {
     "@types/axios": "^0.14.0",
+    "@types/bluebird": "^3.5.32",
+    "@types/js-yaml": "^3.12.4",
     "@types/mongoose": "^5.7.22",
+    "@types/node": "^14.0.11",
+    "@types/validator": "^13.0.0",
     "axios": "^0.19.2",
     "delay": "^4.3.0",
+    "js-yaml": "^3.14.0",
+    "mariadb": "^2.4.0",
     "moment": "^2.26.0",
     "mongoose": "^5.9.18",
+    "reflect-metadata": "^0.1.13",
+    "sequelize": "^5.21.12",
+    "sequelize-typescript": "^1.1.0",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.5",
     "xml-js": "^1.6.11"

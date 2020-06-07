@@ -4,7 +4,7 @@ import * as path from 'path'
 import axios from 'axios';
 import * as convert from 'xml-js';
 import * as moment from 'moment';
-import MajoyProducePriceModel from "../model/MajoyProducePriceModel";
+import MajoyProducePriceModel from "../model/mongoose/MajoyProducePriceModel";
 import {appRootPath} from "../utils/appRootPath";
 import * as delay from "delay";
 
@@ -88,9 +88,4 @@ function convertToJSON (xml: string) {
 function getTotalPage (resultObject: any) {
     const listTotalCount = Number.parseInt(resultObject.lists.list_total_count._text);
     return listTotalCount % 10 === 0 ? listTotalCount / 10 : Math.floor(listTotalCount / 10) + 1;
-}
-
-function backup(document: any, fileName: string) {
-    const filePath = path.resolve(appRootPath(), 'backup', `${fileName}.json`);
-    fs.writeFile(filePath, JSON.stringify(document), () => {});
 }

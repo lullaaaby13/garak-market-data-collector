@@ -1,0 +1,13 @@
+development:
+  username: "garak_market_app"
+  password: "garak_market_app@123"
+  database: "garak_market"
+  host: "127.0.0.1"
+  dialect: "mariadb"
+
+production:
+  username: "garak_market_app"
+  password: "garak_market_app@123"
+  database: "garak_market"
+  host: "127.0.0.1"
+  dialect: "mariadb"

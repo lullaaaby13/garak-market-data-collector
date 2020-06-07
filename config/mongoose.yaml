@@ -1,0 +1,5 @@
+development:
+  url: 'mongodb://125.178.219.22:27017/garak-market'
+
+production:
+  url: 'mongodb://localhost:27017/garak-market'

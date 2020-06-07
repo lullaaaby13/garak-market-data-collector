@@ -4,7 +4,7 @@ import * as path from 'path'
 import axios from 'axios';
 import * as convert from 'xml-js';
 import * as moment from 'moment';
-import MajoyProducePriceModel from "./model/MajoyProducePriceModel";
+import MajoyProducePriceModel from "./model/mongoose/MajoyProducePriceModel";
 import {appRootPath} from "./utils/appRootPath";
 import * as delay from "delay";
 
