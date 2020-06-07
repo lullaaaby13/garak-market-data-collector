@@ -50,7 +50,7 @@ const dateFormat = 'YYYYMMDD';
         for (let page = 1; page <= totalPage; page++) {
             const { data} = await axiosInstance.get('', { params: { ...defaultParameters, ...dateParameter, pageidx: page }})
 
-            // const curPage = page;
+            const curPage = page;
             const converted = convertToJSON(data);
 
             const requests = Array.from(converted.lists.list).map(element => {
@@ -63,7 +63,7 @@ const dateFormat = 'YYYYMMDD';
                 return document;
             }).map(document => MajoyProducePriceModel.create(document));
 
-            await Promise.all(requests).then(() => console.log(`${dateParameter.p_ymd} 수집 완료`));
+            await Promise.all(requests).then(() => console.log(`${dateParameter.p_ymd} | ${curPage} 페이지 수집 완료`));
         }
 
         // // 날짜 증가
