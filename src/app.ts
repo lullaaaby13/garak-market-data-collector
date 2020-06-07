@@ -71,7 +71,7 @@ const dateFormat = 'YYYYMMDD';
                     )
                 })
                 .catch(err => console.log(err));
-            await delay(250);
+            await delay(200);
         }
 
         // // 날짜 증가
