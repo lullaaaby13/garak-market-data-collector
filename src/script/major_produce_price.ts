@@ -4,7 +4,7 @@ import * as path from 'path'
 import axios from 'axios';
 import * as convert from 'xml-js';
 import * as moment from 'moment';
-import MajoyProducePriceModel from "../model/mongoose/MajoyProducePriceModel";
+import MajorProducePriceModel from "../model/mongoose/MajorProducePriceModel";
 import {appRootPath} from "../utils/appRootPath";
 import * as delay from "delay";
 
@@ -25,7 +25,7 @@ const defaultParameters = {
 const dateFormat = 'YYYYMMDD';
 
 (async () => {
-
+    return;
     const startDate = moment("20150701", dateFormat);
     const finishDate = moment().startOf('day');
 
@@ -61,7 +61,7 @@ const dateFormat = 'YYYYMMDD';
                 }
                 document['BID_DTM'] = p_ymd;
                 return document;
-            }).map(document => MajoyProducePriceModel.create(document));
+            }).map(document => MajorProducePriceModel.create(document));
 
             await Promise.all(requests).then(() => console.log(`${dateParameter.p_ymd} | ${curPage} 페이지 수집 완료`));
         }

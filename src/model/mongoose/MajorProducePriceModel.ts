@@ -81,6 +81,6 @@ const MajoyProducePrice = new Schema(
     { timestamps: true },
 );
 
-const MajoyProducePriceModel = model('MajoyProducePrice', MajoyProducePrice);
+const MajorProducePriceModel = model('MajoyProducePrice', MajoyProducePrice);
 
-export default MajoyProducePriceModel;
+export default MajorProducePriceModel;

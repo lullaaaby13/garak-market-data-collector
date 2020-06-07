@@ -1,11 +1,12 @@
 import '../infrastructure/connect_mongoose'
 import sequelize from "../infrastructure/sequelize";
-import MajoyProducePriceModel from "../model/mongoose/MajoyProducePriceModel";
+import MajorProducePriceModel from "../model/mongoose/MajorProducePriceModel";
 import MajorProducePrice from "../model/sequelize/MajorProducePrice.model";
 import * as moment from 'moment';
 import {backupDocument} from "../utils/BackupDocument";
 
 (async () => {
+    console.log(`Conver to MongoDB to MariDB of MajorProducePrice is started.`);
 
     await  sequelize.sync({ force: false });
 
@@ -14,11 +15,11 @@ import {backupDocument} from "../utils/BackupDocument";
             .then(cnt => console.log(`Current rows in MariaDB : ${cnt}`))
     }, 60 * 1000);
 
-    MajoyProducePriceModel
+    MajorProducePriceModel
         .find()
         .cursor()
-        .eachAsync(convertJob)
-        .then(() => console.log(`작업 완료`));
+        .eachAsync(convertJob, err => console.log(err))
+        // .then(() => console.log(`작업 완료`));
 })();
 
 async function convertJob(document: any) {
