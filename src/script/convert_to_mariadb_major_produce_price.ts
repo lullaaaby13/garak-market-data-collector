@@ -8,7 +8,7 @@ import {backupDocument} from "../utils/BackupDocument";
 (async () => {
     console.log(`Conver to MongoDB to MariDB of MajorProducePrice is started.`);
 
-    await  sequelize.sync({ force: false });
+    await sequelize.sync({ force: false });
 
     setInterval(() => {
         MajorProducePrice.count()
@@ -44,5 +44,8 @@ async function convertJob(document: any) {
 
     MajorProducePrice.create(entity)
         .then(() => { })
-        .catch(err => backupDocument(entity, `${entity.bidDtm}_${entity.itemNm}`));
+        .catch(err => {
+            console.log(err);
+            backupDocument(entity, `${entity.bidDtm}_${entity.itemNm}`)
+        });
 }

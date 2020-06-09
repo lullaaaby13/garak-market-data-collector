@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon ./src/script/convert_to_mariadb_major_produce_price.ts --exec ts-node",
+    "dev": "cross-env NODE_ENV=development nodemon ./src/script/generate_after_bid_quantity_request.ts --exec ts-node",
     "build": "tsc"
   },
   "dependencies": {
